@@ -1,0 +1,5 @@
+black
+pytest
+pytest-mock
+pytest-watch
+requests_mock

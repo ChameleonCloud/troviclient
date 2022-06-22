@@ -1,0 +1,24 @@
+# PyTest
+.pytest_cache/
+
+# Tox
+.tox/
+
+# Pyenv
+.python-version
+
+# Pip local package files
+*.egg-info
+.eggs
+
+# Build/install files
+__pycache__/
+build/
+dist/
+*.pyc
+
+# Documentation
+docs/build/
+
+# Jupyter
+.ipynb_checkpoints/
