@@ -10,13 +10,18 @@ TROVI_API_BASE_URL = "https://trovi-dev.chameleoncloud.org"
 class TroviClient():
     def __init__(
             self, keycloak_url, keycloak_realm, oidc_client_id,
-            oidc_client_secret, admin=False, base_url=TROVI_API_BASE_URL):
+            oidc_client_secret, admin=False, base_url=TROVI_API_BASE_URL,
+            scopes=None):
         self.base_url = base_url
         self.admin = admin
         self.keycloak_url = keycloak_url
         self.keycloak_realm = keycloak_realm
         self.oidc_client_id = oidc_client_id
         self.oidc_client_secret = oidc_client_secret
+        if scopes is None:
+            self.scopes = ["artifacts:read"]
+        else:
+            self.scopes = scopes
 
     def _get_token(self):
         realm = KeycloakRealm(
@@ -26,7 +31,7 @@ class TroviClient():
             client_secret=self.oidc_client_secret,
         )
         creds = openid.client_credentials()
-        scopes = ["artifacts:read", "artifacts:write"]
+        scopes = self.scopes
         if self.admin:
             scopes.append("trovi:admin")
         res = requests.post(
