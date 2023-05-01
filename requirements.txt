@@ -1,2 +1,0 @@
-python-keycloak-client==0.2.3
-requests==2.26.0
