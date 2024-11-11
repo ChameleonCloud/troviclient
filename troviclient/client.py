@@ -24,6 +24,9 @@ class TroviClient():
             self.scopes = scopes
 
     def _get_token(self):
+        # Use no token if auth not configured
+        if not self.keycloak_url:
+            return {"access_token": ""}
         realm = KeycloakRealm(
             server_url=self.keycloak_url, realm_name=self.keycloak_realm)
         openid = realm.open_id_connect(
