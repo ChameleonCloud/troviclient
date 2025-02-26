@@ -72,17 +72,15 @@ def list_artifacts(ctx):
     artifacts = ctx.obj["troviclient"].list_artifacts()
     table = _make_table()
     table.add_column("Title")
-    table.add_column("UUID")
+    table.add_column("UUID", min_width=36, overflow="fold")
     table.add_column("Created")
     table.add_column("Owner")
-    table.add_column("Visibility")
     for artifact in artifacts:
         table.add_row(
             artifact["title"],
             artifact["uuid"],
             artifact["created_at"],
-            artifact["owner_urn"][len("urn:trovi:user:") :],
-            artifact["visibility"],
+            artifact["owner_urn"][len("urn:trovi:user:"):],
         )
     console.print(table)
 
