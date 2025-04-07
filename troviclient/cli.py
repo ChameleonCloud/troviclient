@@ -175,7 +175,6 @@ def create(
     crate = ROCrate()
 
     crate.name = name
-    crate.disambiguatingDescription = short_description
     crate.description = description
     crate.keywords = ",".join(tag)
 
@@ -189,7 +188,7 @@ def create(
                 f"Error: Invalid format for author '{entry}'. Expected 'name:email:institution'."
             )
             return
-
+    crate.root_dataset["disambiguatingDescription"] = short_description
     crate.root_dataset["author"] = [
         crate.add(
             Person(
