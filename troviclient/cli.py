@@ -151,7 +151,7 @@ def _artifact_environment(crate, type):
 @click.option(
     "--author",
     multiple=True,
-    help="Author information formatted as 'name:institution'. Can be included multiple times.",
+    help="Author information formatted as 'name:email:institution'. Can be included multiple times.",
     required=True,
 )
 @click.option(
@@ -182,11 +182,11 @@ def create(
     authors = []
     for entry in author:
         try:
-            name, institution = entry.split(":", 1)
-            authors.append({"name": name.strip(), "affiliation": institution.strip()})
+            name, email, institution = entry.split(":", 2)
+            authors.append({"name": name.strip(), "email": email.strip(), "affiliation": institution.strip()})
         except ValueError:
             click.echo(
-                f"Error: Invalid format for author '{entry}'. Expected 'name:institution'."
+                f"Error: Invalid format for author '{entry}'. Expected 'name:email:institution'."
             )
             return
 
